@@ -99,14 +99,7 @@ fun LoginScreen(
                             else
                                 Icons.Default.VisibilityOff
                         IconButton(onClick = {loginView.toggleVis() }) {Icon(imageVector = image, contentDescription = "show?")}
-                                      }
-
-
-                    ,
-
-
-
-
+                                      },
                     isError =  loginView.currentPassword == loginView.password &&loginView.loginPressed && loginView.password.isNotEmpty() && !loginView.checkPassword(loginView.password),
                     supportingText ={
                         if( loginView.currentPassword == loginView.password &&loginView.loginPressed && loginView.password.isNotEmpty() && !loginView.checkPassword(loginView.password)){
@@ -122,6 +115,7 @@ fun LoginScreen(
                     loginView.checkEmail(loginView.email))
                 {
                     onHomeClick("")
+                    sharedView.updateUser(text)
                 }else
                     loginView.pressLogin()
                           }

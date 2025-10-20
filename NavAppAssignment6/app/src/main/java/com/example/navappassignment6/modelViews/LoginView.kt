@@ -15,7 +15,7 @@ class LoginView: ViewModel() {
     var currentEmail by mutableStateOf("")
     var currentPassword by mutableStateOf("")
 
-    var passwordVisable by mutableStateOf(false)
+    var passwordVisable by mutableStateOf(true)
         private set
     var loginPressed by mutableStateOf(false)
     private set

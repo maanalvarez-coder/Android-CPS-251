@@ -1,7 +1,6 @@
 package com.example.navappassignment6.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,6 +30,7 @@ fun AppNavigation(){
         }
         composable(NavRoutes.HOME){
             HomeScreen(
+                sharedView = sharedView,
                 onProfileClick = {navController.navigate(NavRoutes.PROFILE)},
                 onLogoutClick = {navController.navigate(NavRoutes.LOGIN){popUpTo(0){inclusive = true} } }
             )
@@ -38,6 +38,7 @@ fun AppNavigation(){
         }
         composable(NavRoutes.PROFILE){
             ProfileScreen(
+                sharedView = sharedView,
                 onBackClick = {navController.popBackStack()}
             )
         }

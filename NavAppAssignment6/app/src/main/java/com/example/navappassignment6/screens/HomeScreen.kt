@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.navappassignment6.modelViews.LoginView
+import com.example.navappassignment6.modelViews.SharedView
 
 @Composable
 fun HomeScreen(
     onProfileClick: () -> Unit,
     onLogoutClick: () -> Unit,
+    sharedView: SharedView,
 ){
 
     Column(
@@ -28,7 +28,7 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(text = "Welcome!", fontSize = 50.sp, fontWeight = Bold)
-        Text(text = "Hello, PlaceHolder",fontSize = 30.sp)
+        Text(text = "Hello, ${sharedView.currentUser}",fontSize = 30.sp)
         Button(onClick = ({onProfileClick()}), modifier = Modifier.width(300.dp)) {
             Text("Go to Profile")
         }

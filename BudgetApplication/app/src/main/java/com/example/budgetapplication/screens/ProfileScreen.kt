@@ -24,9 +24,20 @@ import com.example.budgetapplication.views.SharedView
 
 @Composable
 fun ProfileScreen(
+    onProfileClick: () -> Unit,
     onBackClick: () -> Unit,
-    sharedView: SharedView
+    onHomeClick: (String) -> Unit,
+    onInputSpendingClick: () -> Unit,
+    onViewTransactionClick: () -> Unit,
+    sharedView: SharedView,
 ){
+    Scaffold(
+        onProfileClick = {onProfileClick() },
+        onHomeClick = {onHomeClick("")},
+        onInputSpendingClick = {onInputSpendingClick()},
+        onViewTransactionClick = {onViewTransactionClick() },
+        sharedView = sharedView
+    )
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

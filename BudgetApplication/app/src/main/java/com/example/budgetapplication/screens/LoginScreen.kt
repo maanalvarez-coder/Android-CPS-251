@@ -42,6 +42,8 @@ fun LoginScreen(
     loginView: LoginView = viewModel(),
     sharedView: SharedView = viewModel(),
     onHomeClick: (String) -> Unit,
+    onInputSpendingClick: () -> Unit,
+    onViewTransactionClick: () -> Unit
 
     ){
     var text by remember { mutableStateOf("") }

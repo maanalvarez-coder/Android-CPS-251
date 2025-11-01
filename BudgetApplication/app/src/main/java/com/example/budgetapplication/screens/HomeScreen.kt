@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,9 +20,18 @@ import com.example.budgetapplication.views.SharedView
 fun HomeScreen(
     onProfileClick: () -> Unit,
     onLogoutClick: () -> Unit,
+    onHomeClick: (String) -> Unit,
+    onInputSpendingClick: () -> Unit,
+    onViewTransactionClick: () -> Unit,
     sharedView: SharedView,
 ){
-
+    Scaffold(
+        onProfileClick = {onProfileClick() },
+        onHomeClick = {onHomeClick("")},
+        onInputSpendingClick = {onInputSpendingClick()},
+        onViewTransactionClick = {onViewTransactionClick() },
+        sharedView = sharedView
+    )
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

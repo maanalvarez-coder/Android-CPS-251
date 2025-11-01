@@ -56,7 +56,7 @@ fun NavBar(
             icon = { Icon(Icons.Filled.AccountBalance, contentDescription = "View Transaction") },
             label = { Text("View Transaction") },
             selected = false,
-            onClick = {onViewTransactionClick}
+            onClick = {onViewTransactionClick()}
         )
 
     }

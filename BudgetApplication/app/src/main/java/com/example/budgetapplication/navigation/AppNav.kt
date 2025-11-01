@@ -6,12 +6,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.budgetapplication.screens.HomeScreen
-import com.example.budgetapplication.screens.InputSpending
+import com.example.budgetapplication.screens.main_screens.HomeScreen
+import com.example.budgetapplication.screens.main_screens.InputSpending
 import com.example.budgetapplication.screens.LoginScreen
-import com.example.budgetapplication.screens.ProfileScreen
+import com.example.budgetapplication.screens.main_screens.ProfileScreen
 import com.example.budgetapplication.screens.Splash
-import com.example.budgetapplication.screens.ViewTransactions
+import com.example.budgetapplication.screens.main_screens.ViewTransactions
 import com.example.budgetapplication.views.LoginView
 import com.example.budgetapplication.views.SharedView
 import kotlinx.coroutines.delay

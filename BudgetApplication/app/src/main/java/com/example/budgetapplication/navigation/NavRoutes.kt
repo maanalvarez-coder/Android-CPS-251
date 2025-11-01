@@ -7,5 +7,7 @@ object NavRoutes {
     const val SPLASH = "splash"
     const val INPUT = "input"
     const val TRANSACTION = "transaction"
+    const val OCR = "ocr"
+    const val MANUAL = "manual"
 
 }

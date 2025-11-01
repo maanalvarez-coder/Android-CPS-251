@@ -1,4 +1,4 @@
-package com.example.budgetapplication.screens
+package com.example.budgetapplication.screens.main_screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.budgetapplication.screens.Scaffold
 import com.example.budgetapplication.views.SharedView
 
 
@@ -32,10 +33,10 @@ fun ProfileScreen(
     sharedView: SharedView,
 ){
     Scaffold(
-        onProfileClick = {onProfileClick() },
-        onHomeClick = {onHomeClick("")},
-        onInputSpendingClick = {onInputSpendingClick()},
-        onViewTransactionClick = {onViewTransactionClick() },
+        onProfileClick = { onProfileClick() },
+        onHomeClick = { onHomeClick("") },
+        onInputSpendingClick = { onInputSpendingClick() },
+        onViewTransactionClick = { onViewTransactionClick() },
         sharedView = sharedView
     )
     Column(
@@ -81,6 +82,6 @@ fun ProfileScreen(
 
 
         }
-        Button(onClick = ({onBackClick()})) {
-            Text("Go Back") }  }
+
+          }
 }

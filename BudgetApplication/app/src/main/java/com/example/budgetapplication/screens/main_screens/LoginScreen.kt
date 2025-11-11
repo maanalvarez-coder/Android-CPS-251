@@ -1,4 +1,4 @@
-package com.example.budgetapplication.screens
+package com.example.budgetapplication.screens.main_screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,8 +24,9 @@ fun HomeScreen(
     onInputSpendingClick: () -> Unit,
     onViewTransactionClick: () -> Unit,
     sharedView: SharedView,
+    onCreateBudgetClick: () -> Unit,
 ){
-    com.example.budgetapplication.screens.Scaffold(
+    Scaffold(
         onProfileClick = { onProfileClick() },
         onHomeClick = { onHomeClick("") },
         onInputSpendingClick = { onInputSpendingClick() },
@@ -37,9 +39,13 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(text = "Welcome!", fontSize = 50.sp, fontWeight = Bold)
-        Text(text = "Hello, ${sharedView.currentUser}",fontSize = 30.sp)
-        Button(onClick = ({onProfileClick()}), modifier = Modifier.width(300.dp)) {
-            Text("Go to Profile")
+        LazyRow {
+            item{Card()}
+            item{Card()}
+            item{Card()}
+        }
+        Button(onClick = ({onCreateBudgetClick()}), modifier = Modifier.width(300.dp)) {
+            Text("Create Budget")
         }
         Button(onClick = ({onLogoutClick()}),modifier = Modifier.width(300.dp).height(50.dp)) {
             Text("logout")

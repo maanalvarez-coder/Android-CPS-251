@@ -6,12 +6,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.budgetapplication.screens.main_screens.HomeScreen
+import com.example.budgetapplication.screens.main_screens.Create_Budget
 import com.example.budgetapplication.screens.main_screens.InputSpending
-import com.example.budgetapplication.screens.LoginScreen
+import com.example.budgetapplication.screens.main_screens.OCR
+import com.example.budgetapplication.screens.main_screens.HomeScreen
+import com.example.budgetapplication.screens.main_screens.LoginScreen
 import com.example.budgetapplication.screens.main_screens.ProfileScreen
-import com.example.budgetapplication.screens.Splash
+import com.example.budgetapplication.screens.main_screens.Splash
 import com.example.budgetapplication.screens.main_screens.ViewTransactions
+import com.example.budgetapplication.views.LazyCardView
 import com.example.budgetapplication.views.LoginView
 import com.example.budgetapplication.views.SharedView
 import kotlinx.coroutines.delay
@@ -21,6 +24,7 @@ fun AppNavigation(){
     val navController = rememberNavController()
     val sharedView: SharedView = viewModel()
     val loginView: LoginView = viewModel()
+    val lazyCardView : LazyCardView = viewModel()
     NavHost(
         navController = navController,
         startDestination = NavRoutes.SPLASH
@@ -28,7 +32,7 @@ fun AppNavigation(){
         composable(NavRoutes.SPLASH){
             LaunchedEffect(Unit) {
                 delay(5000)
-                navController.navigate(NavRoutes.LOGIN)
+                navController.navigate(NavRoutes.TRANSACTION_HISTORY)
             }
             Splash()
         }
@@ -55,7 +59,8 @@ fun AppNavigation(){
                 },
                 onHomeClick = {userName -> navController.navigate(NavRoutes.HOME)},
                 onInputSpendingClick = {navController.navigate(NavRoutes.INPUT)},
-                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION)}
+                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION_HISTORY)},
+                onCreateBudgetClick = {navController.navigate(NavRoutes.CREATE_BUDGET)}
             )
 
         }
@@ -66,7 +71,7 @@ fun AppNavigation(){
                 onProfileClick = {navController.navigate(NavRoutes.PROFILE)} ,
                 onHomeClick = {userName -> navController.navigate(NavRoutes.HOME)},
                 onInputSpendingClick = {navController.navigate(NavRoutes.INPUT)},
-                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION)}
+                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION_HISTORY)}
             )
         }
         composable(NavRoutes.INPUT){
@@ -76,20 +81,31 @@ fun AppNavigation(){
                 onProfileClick = {navController.navigate(NavRoutes.PROFILE)} ,
                 onHomeClick = {userName -> navController.navigate(NavRoutes.HOME)},
                 onInputSpendingClick = {navController.navigate(NavRoutes.INPUT)},
-                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION)}
+                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION_HISTORY)},
+                onOcrClick = {navController.navigate(NavRoutes.OCR)},
+                onInputTransaction = {navController.navigate(NavRoutes.MANUAL)}
             )
         }
-        composable(NavRoutes.TRANSACTION){
+        composable(NavRoutes.TRANSACTION_HISTORY){
             ViewTransactions(
                 sharedView = sharedView,
+                lazyCardView = lazyCardView,
                 onBackClick = { navController.popBackStack() },
                 onProfileClick = {navController.navigate(NavRoutes.PROFILE)} ,
                 onHomeClick = {userName -> navController.navigate(NavRoutes.HOME)},
                 onInputSpendingClick = {navController.navigate(NavRoutes.INPUT)},
-                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION)}
+                onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION_HISTORY)}
             )
         }
-    }
+        composable(NavRoutes.OCR){
+            OCR( onBackClick = { navController.popBackStack() },)
+        }
+        composable(NavRoutes.MANUAL){
+            InputSpending(onBackClick = { navController.popBackStack() })
+        }
+        composable(NavRoutes.CREATE_BUDGET){
+            Create_Budget(onBackClick = { navController.popBackStack() })
+        } }
 
 
 }

@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.budgetapplication.screens.Scaffold
 import com.example.budgetapplication.views.SharedView
 
 /*
@@ -38,6 +37,8 @@ fun InputSpending(
     onHomeClick: (String) -> Unit,
     onInputSpendingClick: () -> Unit,
     onViewTransactionClick: () -> Unit,
+    onOcrClick: () -> Unit,
+    onInputTransaction: () -> Unit,
     sharedView: SharedView,
 ) {
     Scaffold(
@@ -56,7 +57,7 @@ fun InputSpending(
         FlowColumn() {
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 item {
-                    Button(onClick = {},
+                    Button(onClick = {onOcrClick()},
                         modifier = Modifier.padding(16.dp).fillMaxWidth().height(60.dp)
                     ) { Text(text = "OCR", style = MaterialTheme.typography.titleLarge) } }
                 item{
@@ -66,7 +67,7 @@ fun InputSpending(
                          text = "Or")}
                 item {
                     Button(
-                        onClick = {},
+                        onClick = {onInputTransaction()},
                         modifier = Modifier.padding(16.dp).fillMaxWidth().height(60.dp)
                     ) { Text("Manual input", style = MaterialTheme.typography.titleLarge) } }
             }

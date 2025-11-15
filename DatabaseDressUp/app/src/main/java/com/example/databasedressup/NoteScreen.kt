@@ -1,9 +1,16 @@
 package com.example.databasedressup
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateSizeAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,6 +31,9 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import com.example.databasedressup.ui.theme.AppShapes
 import kotlin.time.Duration.Companion.milliseconds
 
 
@@ -33,6 +43,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun NoteScreen(viewModel: NoteViewModel) {
     // Collect the list of notes from the ViewModel as a State, so UI recomposes on changes.
     val notes by viewModel.notes.collectAsState()
+    val focusRequester = remember { FocusRequester() }
     // State for the title input field.
     var title by remember { mutableStateOf("") }
     var titleTouched by remember { mutableStateOf(false) }
@@ -50,6 +61,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
     // Coroutine scope for launching suspending functions, like showing snackbars.
     val scope = rememberCoroutineScope()
+
     val cardElevation by animateDpAsState(
         targetValue = if (expanded) 26.dp else 4.dp,
         label = "cardElevation"
@@ -79,11 +91,13 @@ fun NoteScreen(viewModel: NoteViewModel) {
                         content = ""
                         titleTouched = false
                         contentTouched = false
+
+                        focusRequester.requestFocus()
                     }
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = MaterialTheme.colorScheme.onSecondary,
-                shape = MaterialTheme.shapes.medium            ) {
+                shape = AppShapes.medium            ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add Note"
@@ -98,7 +112,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
 
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                shape =  RoundedCornerShape(16.dp),
+                shape =  AppShapes.large,
                 modifier = Modifier.padding(16.dp)
             ) {
 
@@ -116,7 +130,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                         onValueChange = { title = it
                                         titleTouched = true},
                         label = { Text("Title") },
-                        modifier = Modifier.fillMaxWidth().padding(start=16.dp, end=16.dp),
+                        modifier = Modifier.fillMaxWidth().padding(start=16.dp, end=16.dp).focusRequester(focusRequester),
                         isError = title.isBlank()&& titleTouched,
                         supportingText = {if(titleTouched && title.isBlank()){
                             Text("Content can not be blank.")
@@ -161,6 +175,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                                 content = ""
                                 titleTouched = false
                                 contentTouched = false
+
                             }
                         }
                         , enabled = title.isNotBlank() && content.isNotBlank(), modifier = Modifier.padding(bottom = 16.dp, start = 40.dp)
@@ -185,7 +200,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             // Title for the list of notes.
-            Text("Your Notes", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(bottom = 16.dp))
+            Text("Your Notes", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(bottom = 16.dp), color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.height(8.dp))
             // LazyColumn to efficiently display a scrollable list of notes.
             LazyColumn(modifier = Modifier.fillMaxHeight()
@@ -193,6 +208,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                 contentPadding = PaddingValues(16.dp)) {
                 items(notes.size) { idx ->
                     val note = notes[idx]
+                    var isVisable by remember { mutableStateOf(false) }
                     var favorite by remember { mutableStateOf(false) }
                     val color by animateColorAsState(
                     targetValue = if (favorite) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
@@ -200,20 +216,23 @@ fun NoteScreen(viewModel: NoteViewModel) {
                     label = "cardElevation"
                     )
                     val cardElevation by animateDpAsState(
-                        targetValue = if (favorite) 26.dp else 4.dp,
+                        targetValue = if (favorite) 8.dp else 2.dp,
                         animationSpec = tween(durationMillis = 300),
                         label = "cardElevation"
                     )
+
 
                     // Surface for individual note display, with a slight elevation.
 
                     Card(colors = CardDefaults.cardColors(containerColor = color),
                         onClick = {
+                            isVisable= !isVisable
                         editingNote = note
                         title = note.title
                         content = note.content
-                    }, elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
-                        shape = RoundedCornerShape(12.dp)
+
+                        }, elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
+                        shape = AppShapes.medium
 
                     ) {
                     Surface(
@@ -233,7 +252,15 @@ fun NoteScreen(viewModel: NoteViewModel) {
                             // Column for displaying note title, content, and date.
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(note.title, style = MaterialTheme.typography.titleSmall)
-                                Text(note.content, style = MaterialTheme.typography.bodyMedium)
+                                AnimatedVisibility(
+                                    visible = isVisable,
+                                    enter = fadeIn() + expandVertically(),
+                                    exit = fadeOut() + shrinkVertically()
+                                ) {
+                                    // Content to show or hide
+                                    Text(note.content, style = MaterialTheme.typography.bodyMedium)
+                                }
+
                             }
                             // Column for Edit and Delete buttons.
                             Column {
@@ -324,10 +351,13 @@ fun NoteScreen(viewModel: NoteViewModel) {
 @Composable
 fun topBar(){
     TopAppBar(
-        title = {Text(text = "Material Note")},
+        title = {Text(text = "Material Note")}, modifier = Modifier.clickable(
+            onClick = {}
+        ),
          colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
-            titleContentColor = MaterialTheme.colorScheme.onPrimary
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+
         )
     )
 }

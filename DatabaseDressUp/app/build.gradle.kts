@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.material3)
     implementation(libs.androidx.foundation)
+    implementation(libs.androidx.animation)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material3)

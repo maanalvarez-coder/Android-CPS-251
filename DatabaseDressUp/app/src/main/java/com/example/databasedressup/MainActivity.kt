@@ -21,35 +21,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 
-val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFBB86FC),
-    onPrimary = Color.Black,
-    primaryContainer = Color(0xFF03DAC6),
-    onPrimaryContainer = Color.White,
-    background = Color(0xFF121212),
-    onBackground = Color.White,
-    secondary =Color(0xFF03DAC6),
-    onSecondary = Color.Black,
-    surface = Color(0xFF1E1E1E) ,
-    onSurface = Color.White,
-    error = Color(0xFFCF6679) ,
-    onError = Color.Black,
-)
-val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF6200EE),
-    onPrimary = Color. White,
-    primaryContainer = Color(0xFFBB86FC),
-    onPrimaryContainer = Color.Black,
-    background = Color(0xFFF0F0F0),
-    onBackground = Color.Black,
 
-    secondary=Color(0xFF03DAC6),
-    onSecondary = Color.Black,
-    surface = Color.White ,
-    onSurface = Color.Black,
-    error = Color(0xFFB00020) ,
-    onError = Color.White,
-)
+    val DarkColorScheme = darkColorScheme(
+        primary = Color(0xFFBB86FC),
+        onPrimary = Color.Black,
+        primaryContainer = Color(0xFF03DAC6),
+        onPrimaryContainer = Color.White,
+        background = Color(0xFF121212),
+        onBackground = Color.White,
+        secondary = Color(0xFF031AC6),
+        onSecondary = Color.Black,
+        surface = Color(0xFF1E1E1E),
+        onSurface = Color.White,
+        error = Color(0xFFCF6679),
+        onError = Color.Black,
+    )
+    val LightColorScheme = lightColorScheme(
+        primary = Color(0xFF6200EE),
+        onPrimary = Color.White,
+        primaryContainer = Color(0xFFBB86FC),
+        onPrimaryContainer = Color.Black,
+        background = Color(0xFFF0F0F0),
+        onBackground = Color.Black,
+
+        secondary = Color(0xFF03DAC6),
+        onSecondary = Color.Black,
+        surface = Color.White,
+        onSurface = Color.Black,
+        error = Color(0xFFB00020),
+        onError = Color.White,
+    )
 
 // MainActivity is the entry point of the Android application.
 class MainActivity : ComponentActivity() {

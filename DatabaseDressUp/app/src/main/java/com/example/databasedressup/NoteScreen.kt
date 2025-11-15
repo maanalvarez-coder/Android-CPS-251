@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.getValue
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -80,8 +81,8 @@ fun NoteScreen(viewModel: NoteViewModel) {
                         contentTouched = false
                     }
                 },
-                containerColor = Color(0xFF03DAC6),
-                contentColor = Color.Black,
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary,
                 shape = MaterialTheme.shapes.medium            ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
@@ -105,7 +106,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                     Text(
                         text = if (editingNote == null) "Add Note" else "Update Note",
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.fillMaxWidth(). padding( start= 140.dp, top = 16.dp)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -194,7 +195,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                     val note = notes[idx]
                     var favorite by remember { mutableStateOf(false) }
                     val color by animateColorAsState(
-                    targetValue = if (favorite) Color(0xFFBB86FC) else MaterialTheme.colorScheme.surface,
+                    targetValue = if (favorite) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
                     animationSpec = tween(durationMillis = 300),
                     label = "cardElevation"
                     )
@@ -250,7 +251,7 @@ fun NoteScreen(viewModel: NoteViewModel) {
                                         Icon(
                                             imageVector = Icons.Default.Star,
                                             contentDescription = "Favorite",
-                                            tint = Color(0xFF03DAC6)
+                                            tint = MaterialTheme.colorScheme.secondary
                                         )
                                     }else{
                                         Icon(

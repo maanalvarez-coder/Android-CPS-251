@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
+
+    // Define custom colors for the Material theme
+    val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     onPrimary = Color.Black,
     primaryContainer = Color(0xFF03DAC6),
@@ -27,14 +29,16 @@ private val DarkColorScheme = darkColorScheme(
     onError = Color.Black,
 )
 
-private val LightColorScheme = lightColorScheme(
+
+ val LightColorScheme = lightColorScheme(
     primary = Color(0xFF6200EE),
     onPrimary = Color. White,
     primaryContainer = Color(0xFFBB86FC),
     onPrimaryContainer = Color.Black,
     background = Color(0xFFF0F0F0),
     onBackground = Color.Black,
-    secondary =Color(0xFF03DAC6),
+
+    secondary=Color(0xFF03DAC6),
     onSecondary = Color.Black,
     surface = Color.White ,
     onSurface = Color.Black,
@@ -60,7 +64,7 @@ fun DatabaseDressUpTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = LightColorScheme,
         typography = Typography,
         content = content
     )

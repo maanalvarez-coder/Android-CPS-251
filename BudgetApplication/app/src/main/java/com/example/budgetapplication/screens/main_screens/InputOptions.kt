@@ -17,19 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.budgetapplication.views.SharedView
 
-/*
-* 1) add two buttons OCR and manual
-* ?) how are we handling the camera portion of the app
-*
-*
-*
-*
-*
-*
-*
-*
-*
-* */
 @Composable
 fun InputSpending(
     onProfileClick: () -> Unit,
@@ -48,32 +35,60 @@ fun InputSpending(
         onViewTransactionClick = { onViewTransactionClick() },
         sharedView = sharedView
     )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        FlowColumn() {
-            LazyColumn(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-                item {
-                    Button(onClick = {onOcrClick()},
-                        modifier = Modifier.padding(16.dp).fillMaxWidth().height(60.dp)
-                    ) { Text(text = "OCR", style = MaterialTheme.typography.titleLarge) } }
-                item{
-                    Text(modifier = Modifier.padding(32.dp).fillMaxWidth(),
-                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleLarge,
-                         text = "Or")}
+        FlowColumn {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
                 item {
                     Button(
-                        onClick = {onInputTransaction()},
-                        modifier = Modifier.padding(16.dp).fillMaxWidth().height(60.dp)
-                    ) { Text("Manual input", style = MaterialTheme.typography.titleLarge) } }
+                        onClick = { onOcrClick() },
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                            .height(60.dp)
+                    ) {
+                        Text(
+                            text = "OCR",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                }
+
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(32.dp)
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleLarge,
+                        text = "Or"
+                    )
+                }
+
+                item {
+                    Button(
+                        onClick = { onInputTransaction() },
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                            .height(60.dp)
+                    ) {
+                        Text(
+                            "Manual Input",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                }
             }
-
         }
-
     }
 }
-

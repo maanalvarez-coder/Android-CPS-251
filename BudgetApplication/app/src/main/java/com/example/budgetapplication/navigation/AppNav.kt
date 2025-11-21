@@ -18,6 +18,9 @@ import com.example.budgetapplication.views.LazyCardView
 import com.example.budgetapplication.views.LoginView
 import com.example.budgetapplication.views.SharedView
 import kotlinx.coroutines.delay
+import com.example.budgetapplication.screens.main_screens.OCRReview
+import com.example.budgetapplication.screens.main_screens.OCR
+import com.example.budgetapplication.screens.main_screens.OCRReview
 
 @Composable
 fun AppNavigation(){
@@ -97,9 +100,36 @@ fun AppNavigation(){
                 onViewTransactionClick = {navController.navigate(NavRoutes.TRANSACTION_HISTORY)}
             )
         }
-        composable(NavRoutes.OCR){
-            OCR( onBackClick = { navController.popBackStack() },)
+        composable(NavRoutes.OCR) {
+            OCR(
+                onNavigateToReview = { encodedJson ->
+                    navController.navigate("${NavRoutes.OCR_REVIEW}/$encodedJson")
+                }
+            )
         }
+
+
+        composable(
+            route = "${NavRoutes.OCR_REVIEW}/{encodedJson}"
+        ) { backStackEntry ->
+
+            val encodedJson = backStackEntry.arguments?.getString("encodedJson")
+
+            OCRReview(
+                encodedJson = encodedJson,
+                onBackClick = { navController.popBackStack() },
+
+                // REQUIRED
+                onConfirm = {
+                    // After confirming, navigate to HOME or INPUT
+                    navController.navigate(NavRoutes.HOME) {
+                        popUpTo(NavRoutes.OCR) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+
         composable(NavRoutes.MANUAL){
             InputSpending(onBackClick = { navController.popBackStack() })
         }
